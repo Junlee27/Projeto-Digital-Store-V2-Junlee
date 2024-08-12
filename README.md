@@ -1,6 +1,7 @@
 # READ ME - Projeto de Junlee Araújo Rozendo
 
 ## Estrutura
+```
 projeto-digital-store/
 |-- node_modules/
 |-- public/
@@ -75,6 +76,7 @@ projeto-digital-store/
 |-- package.json
 |-- README.md
 |-- vite.config.js
+```
 
 ## Componentes
 
@@ -142,29 +144,29 @@ projeto-digital-store/
 
 
 6. **Se você encontrar problemas com dependências**
-    Caso isso aconteça: Reinstale-as conforme o "package.json":
+  Caso isso aconteça: Reinstale-as conforme o "package.json":
     rm -rf node_modules
     rm -rf package-lock.json
-	npm install
-	npm run lint
-	npm run dev
-	npm run build
-	npm run preview
+	  npm install
+	  npm run lint
+	  npm run dev
+	  npm run build
+	  npm run preview
 
 7. **Erros com versões específicas de dependências**
-    Caso tenha problemas com versões específicas, você pode instalar as dependências manualmente. Aqui estão os comandos para instalar todas as versões necessárias de uma vez:
+  Caso tenha problemas com versões específicas, você pode instalar as dependências manualmente. Aqui estão os comandos para instalar todas as versões necessárias de uma vez:
     rm -rf node_modules
     rm -rf package-lock.json
 
     npm install @types/react-dom@18.3.0 @types/react@18.3.3 @vitejs/plugin-react@4.3.1 axios@1.7.2 bootstrap@5.3.3 eslint-plugin-react-hooks@4.6.2 eslint-plugin-react-refresh@0.4.7 eslint-plugin-react@7.34.2 eslint@8.57.0 firebase@10.12.5 react-dom@18.3.1 react-router-dom@6.25.1 react@18.3.1 vite@5.3.1
 
-	npm run lint
-	npm run dev
-	npm run build
-	npm run preview
+	  npm run lint
+	  npm run dev
+	  npm run build
+	  npm run preview
 
 8. **Instalação Individual de Dependências**
-    Se precisar instalar ou atualizar apenas uma dependência específica, use um dos comandos abaixo:
+  Se precisar instalar ou atualizar apenas uma dependência específica, use um dos comandos abaixo:
     npm install @types/react-dom@18.3.0
     npm install @types/react@18.3.3
     npm install @vitejs/plugin-react@4.3.1
@@ -180,110 +182,103 @@ projeto-digital-store/
     npm install react@18.3.1
     npm install vite@5.3.1
 	
-	npm run lint
-	npm run dev
-	npm run build
-	npm run preview
+	  npm run lint
+	  npm run dev
+	  npm run build
+	  npm run preview
 
 ### Utilização de Componentes
+  Os componentes estão localizados na pasta src/ui/Components e src/styles/Components. Você pode importá-los e usá-los nas suas páginas conforme necessário!
 
-Os componentes estão localizados na pasta src/ui/Components e src/styles/Components. Você pode importá-los e usá-los nas suas páginas conforme necessário!
-
-```jsx
-import React from 'react';
-import Header from '@components/Header/Header.jsx'
-import Footer from '@components/Footer/Footer.jsx'
+    ```jsx
+    import React from 'react';
+    import Header from '@components/Header/Header.jsx'
+    import Footer from '@components/Footer/Footer.jsx'
 
 
-const Layout = ({ children }) => {
-  return (
-    <div>
-      <Header />
-      {children}
-      <Footer />
-    </div>
-  );
-};
-
-export default Layout;
-```
-
-### Utilização de Páginas
-
-As páginas estão localizadas na pasta src/ui/pages. Utilize React Router para configurar as rotas do seu aplicativo.
-
-```jsx
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomePage from '@pages/HomePage/HomePage';
-import ProductListingPage from '@pages/ProductListingPage/ProductListingPage';
-import ProductViewPage from '@pages/ProductViewPage/ProductViewPage';
-import Error404 from '@pages/Error404/Error404';
-
-const App = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/products" component={ProductListingPage} />
-      <Route path="/product/:id" component={ProductViewPage} />
-      <Route component={Error404} />
-    </Switch>
-  </Router>
-);
-
-export default App;
-```
-
-### Utilização de axios
-Utilize axios para fazer requisições HTTP em seus componentes.
-
-```jsx
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-
-const HomePage = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('https://api.exemplo.com/produtos');
-      setProducts(result.data);
+    const Layout = ({ children }) => {
+      return (
+        <div>
+          <Header />
+          {children}
+          <Footer />
+        </div>
+      );
     };
 
-    fetchData();
-  }, []);
+    export default Layout;
+    ```
 
-  return (
-    <div>
-      {products.map(product => (
-        <div key={product.id}>{product.name}</div>
-      ))}
-    </div>
-  );
-};
+### Utilização de Páginas
+  As páginas estão localizadas na pasta src/ui/pages. Utilize React Router para configurar as rotas do seu aplicativo.
 
-export default HomePage;
-```
+    ```jsx
+    import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+    import HomePage from '@pages/HomePage/HomePage';
+    import ProductListingPage from '@pages/ProductListingPage/ProductListingPage';
+    import ProductViewPage from '@pages/ProductViewPage/ProductViewPage';
+    import Error404 from '@pages/Error404/Error404';
+
+    const App = () => (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/products" component={ProductListingPage} />
+          <Route path="/product/:id" component={ProductViewPage} />
+          <Route component={Error404} />
+        </Switch>
+      </Router>
+    );
+
+    export default App;
+    ```
+
+### Utilização de axios
+  Utilize axios para fazer requisições HTTP em seus componentes.
+
+    ```jsx
+    import axios from 'axios';
+    import React, { useState, useEffect } from 'react';
+
+    const HomePage = () => {
+      const [products, setProducts] = useState([]);
+
+      useEffect(() => {
+        const fetchData = async () => {
+          const result = await axios.get('https://api.exemplo.com/produtos');
+          setProducts(result.data);
+        };
+
+        fetchData();
+      }, []);
+
+      return (
+        <div>
+          {products.map(product => (
+            <div key={product.id}>{product.name}</div>
+          ))}
+        </div>
+      );
+    };
+
+    export default HomePage;
+    ```
 
 ### Utilização de Bootstrap
+  Adicione estilos e componentes do Bootstrap ao seu projeto.
 
-Adicione estilos e componentes do Bootstrap ao seu projeto.
+    ```jsx
+    import 'bootstrap/dist/css/bootstrap.min.css';
+    import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-```jsx
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+    const Carousel = () => (
+      <div id="carouselExample" className="carousel slide" data-ride="carousel">
+        {/* Carrossel conteúdo */}
+      </div>
+    );
 
-const Carousel = () => (
-  <div id="carouselExample" className="carousel slide" data-ride="carousel">
-    {/* Carrossel conteúdo */}
-  </div>
-);
-
-export default Carousel;
-```
+    export default Carousel;
+    ```
 
 ## Conclusão
-
 Este guia fornece uma visão geral da estrutura do projeto, descreve os componentes e páginas, e explica como utilizar bibliotecas como `axios`, Bootstrap e React Router.
-
-## Obervação:
-Desculpem se acabou ficando desorgarnizado e mandei já no final do prazo, acabei perdendo todo o projeto duas vezes e recomecei novamente, mas acontece. A todos que lerem isso, tenha(m) um ótimo dia.
