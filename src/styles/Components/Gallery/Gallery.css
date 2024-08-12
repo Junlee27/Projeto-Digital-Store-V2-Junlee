@@ -1,0 +1,28 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .gallery-image-container {
+    width: 150px;
+    text-align: center;
+  }
+  
+  .gallery-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .gallery-details h3 {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .gallery-details p {
+    color: var(--primary);
+    font-weight: bold;
+  }
+  

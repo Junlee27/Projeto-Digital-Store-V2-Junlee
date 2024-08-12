@@ -1,0 +1,15 @@
+.buyBox {
+  padding: 20px;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray-2);
+  border-radius: 5px;
+}
+
+.buyBox h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.buyBox p {
+  margin-bottom: 5px;
+}

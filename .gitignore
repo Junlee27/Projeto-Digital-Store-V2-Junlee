@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+.env
+.DS_Store
+.cache/
+.vscode/
+.idea/
+package-lock.json

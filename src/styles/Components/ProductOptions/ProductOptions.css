@@ -1,0 +1,24 @@
+.product-options {
+    margin-top: 20px;
+  }
+  
+  .option-buttons,
+  .color-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .option-button {
+    padding: 5px 10px;
+    border: 1px solid var(--light-gray-2);
+    background-color: var(--light-gray-3);
+    cursor: pointer;
+  }
+  
+  .color-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
