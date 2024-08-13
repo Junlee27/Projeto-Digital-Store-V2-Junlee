@@ -1,6 +1,6 @@
-import "@styles/Components/Header/Header.css"
-import logo from "@assets/img/logo.svg"
-import carrinho from "@assets/img/carrinho.svg"
+import "@styles/Components/Header/Header.css";
+import logo from "@assets/img/logo.svg";
+import carrinho from "@assets/img/carrinho.svg";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -12,7 +12,13 @@ function Header() {
           <div className="navs">
             <div className="nav-header">
               <Link to="/"><img src={logo} alt="logo" /></Link>
-              <input type="text" placeholder="Pesquisar produto..." className="input-icon-search" />
+              <input 
+                type="text" 
+                placeholder="Pesquisar produto..." 
+                className="input-icon-search" 
+                id="search-product"
+                name="search"
+              />
               <Link className="link-cadastro" to="/Registrar">Cadastre-se</Link>
               <button type="button"><Link to="/Login">Entrar</Link></button>
               <Link className="link-carrinho-nav" to="/Cart"><img src={carrinho} alt="carrinho" className="icon-carrinho" /></Link>
@@ -30,4 +36,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;

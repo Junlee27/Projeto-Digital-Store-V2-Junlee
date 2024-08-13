@@ -15,11 +15,12 @@ function Main() {
         <form className="conta" action="/login" method="POST">
           <h4>Login *</h4>
           <input 
-            type="text" 
-            name="login" 
-            placeholder="Insira seu login ou email" 
+            id="email" 
+            type="email" 
+            name="email" 
+            placeholder="Insira seu email" 
             required 
-            autocomplete="username" 
+            autoComplete="email"
           />
           <h4>Senha *</h4>
           <input 
@@ -27,7 +28,7 @@ function Main() {
             name="senha" 
             placeholder="Insira sua senha" 
             required 
-            autocomplete="current-password" 
+            autoComplete="current-password"
           />
           <Link to="/Error">Esqueci minha senha</Link>
           <button type="submit">Acessar Conta</button>

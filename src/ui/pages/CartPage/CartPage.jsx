@@ -81,12 +81,22 @@ function CartPage() {
           <section className="discount-shipping">
             <div className="discount">
               <strong>Calcular desconto</strong>
-              <input type="text" placeholder="Insira seu Cupom" />
+              <input 
+                type="text" 
+                placeholder="Insira seu Cupom" 
+                id="discount-code"
+                name="discountCode"
+              />
               <button>OK</button>
             </div>
             <div className="shipping">
               <strong>Calcular Frete</strong>
-              <input type="text" placeholder="Insira seu CEP" />
+              <input 
+                type="text" 
+                placeholder="Insira seu CEP" 
+                id="shipping-zip"
+                name="shippingZip"
+              />
               <button>OK</button>
             </div>
           </section>

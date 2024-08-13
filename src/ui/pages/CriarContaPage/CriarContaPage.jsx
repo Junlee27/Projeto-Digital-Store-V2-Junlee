@@ -16,9 +16,21 @@ function CriarContaPage() {
           </div>
           <form className="conta" action="/register" method="POST">
             <h4>Email </h4>
-            <input type="email" name="email" placeholder="Insira seu email" required />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Insira seu email" 
+              required 
+              autoComplete="email" // Adicionando o atributo autoComplete
+            />
             <h4>Nome Completo</h4>
-            <input type="text" name="nome" placeholder="Insira seu nome" required />
+            <input 
+              type="text" 
+              name="nome" 
+              placeholder="Insira seu nome" 
+              required 
+              autoComplete="name" // Opcional: adicionando autoComplete para o nome
+            />
             <button type="submit">Criar Conta</button>
           </form>
           <div className="outrologin">
