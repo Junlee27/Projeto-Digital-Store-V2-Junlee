@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Layout from "@components/Layout/Layout";
 import BuyBox from '@components/Buybox/Buybox';
 import Cards2 from "@components/Cards/Cards2";
 import Cards from "@components/Cards/Cards";
 import axios from "axios";
+import { CartContext } from '@context/CartContext';
 import "@styles/pages/ProductViewPage/ProductViewPage.css";
 import sapatoAzul from "@assets/img/sapato_card.png";
 import Carrousel from "@components/CarouselMenor/CarouselMenor";
 
 function ProductViewPage() {
   const [character, setCharacter] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +20,7 @@ function ProductViewPage() {
         setCharacter(response.data);
         console.log("API response:", response.data);
       } catch (error) {
-        console.log(`o erro foi ${error}`);
+        console.log(`O erro foi ${error}`);
       }
     };
     fetchData();
@@ -41,7 +43,7 @@ function ProductViewPage() {
   return (
     <Layout>
       <div className="corpo-product-view">
-        <p>Home / Produtos / Tênis / Nike / Tenis Nike Revolution 6 Nature Masculino</p>
+        <p>Home / Produtos / Tênis / Nike / Tênis Nike Revolution 6 Nature Masculino</p>
         <div className="product">
           <div className="carousel-cards-tenis">
             <div>
@@ -58,6 +60,7 @@ function ProductViewPage() {
                 sizes={product.sizes}
                 colors={product.colors}
               />
+              <button onClick={() => addToCart(product)}>Adicionar ao Carrinho</button>
             </div>
           </div>
         </div>
