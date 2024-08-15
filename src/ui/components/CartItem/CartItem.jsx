@@ -1,29 +1,30 @@
 import React from 'react';
-import "@styles/Components/CartItem/CartItem.css";
+import '@styles/Components/CartItem/CartItem.css';
 
-const CartItem = () => {
+function CartItem({ item, removerItem, atualizarQuantidade }) {
+  const originalPrice = item.originalPrice ? item.originalPrice.toFixed(2) : '0.00';
+  const discountedPrice = item.discountedPrice ? item.discountedPrice.toFixed(2) : '0.00';
+
   return (
     <div className="cart-item">
       <div className="item-details">
-        <img src="/path-to-image/tenis-nike.png" alt="Tênis Nike Revolution 6 Next Nature Masculino" />
+        <img src={item.image} alt={item.name} />
         <div className="item-info">
-          <h2>Tênis Nike Revolution 6 Next Nature Masculino</h2>
-          <p>Cor: Vermelho / Branco</p>
-          <p>Tamanho: 42</p>
+          <h2>{item.name || 'No Name Available'}</h2>
+          <p className="item-pricing">
+            <span className="original-price">R${originalPrice}</span>
+            <span className="discounted-price">R${discountedPrice}</span>
+          </p>
         </div>
       </div>
       <div className="item-quantity">
-        <button>-</button>
-        <span>1</span>
-        <button>+</button>
-        <a href="#" className="remove-item">Remover item</a>
+        <button onClick={() => atualizarQuantidade(item, item.quantity - 1)}>-</button>
+        <span>{item.quantity || 1}</span>
+        <button onClick={() => atualizarQuantidade(item, item.quantity + 1)}>+</button>
       </div>
-      <div className="item-pricing">
-        <p className="original-price">R$ 219,00</p>
-        <p className="discounted-price">R$ 219,00</p>
-      </div>
+      <button className="remove-item" onClick={() => removerItem(item.id)}>Remover</button>
     </div>
   );
-};
+}
 
 export default CartItem;
