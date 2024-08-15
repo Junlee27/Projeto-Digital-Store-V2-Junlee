@@ -1,24 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import '@styles/Components/Gallery/Gallery.css';
 
-function Gallery({ images }) {
+const Gallery = ({ imagens }) => {
+  const [imagemAtual, setImagemAtual] = useState(0);
+
+  const proximaImagem = () => {
+    setImagemAtual((prevImagemAtual) => (prevImagemAtual + 1) % imagens.length);
+  };
+
+  const imagemAnterior = () => {
+    setImagemAtual((prevImagemAtual) => (prevImagemAtual - 1 + imagens.length) % imagens.length);
+  };
+
   return (
-    <div className="gallery">
-      {images.map((image, index) => (
-        <img key={index} src={image.src} alt={image.alt} />
-      ))}
+    <div className="gallery-container">
+      <div className="gallery-main">
+        <img src={imagens[imagemAtual]} alt="Galeria" className="gallery-imagem" />
+        <button className="gallery-btn anterior" onClick={imagemAnterior}>‹</button>
+        <button className="gallery-btn proxima" onClick={proximaImagem}>›</button>
+      </div>
+      <div className="gallery-thumbnails">
+        {imagens.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Thumbnail ${index + 1}`}
+            className={`gallery-thumbnail ${index === imagemAtual ? 'active' : ''}`}
+            onClick={() => setImagemAtual(index)}
+          />
+        ))}
+      </div>
     </div>
   );
-}
-
-Gallery.propTypes = {
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default Gallery;

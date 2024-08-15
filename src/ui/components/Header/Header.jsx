@@ -1,9 +1,20 @@
+import React, { useState } from "react";
 import "@styles/Components/Header/Header.css";
 import logo from "@assets/img/logo.svg";
 import carrinho from "@assets/img/carrinho.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/ProductList?search=${searchTerm}`);
+    }
+  };
+
   return (
     <>
       <header>
@@ -11,13 +22,17 @@ function Header() {
           <div className="navs">
             <div className="nav-header">
               <Link to="/"><img src={logo} alt="logo" /></Link>
-              <input 
-                type="text" 
-                placeholder="Pesquisar produto..." 
-                className="input-icon-search" 
-                id="search-product"
-                name="search"
-              />
+              <form onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  placeholder="Pesquisar produto..."
+                  className="input-icon-search"
+                  id="search-product"
+                  name="search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </form>
               <Link className="link-cadastro" to="/Registrar">Cadastre-se</Link>
               <button type="button"><Link to="/Login">Entrar</Link></button>
               <Link className="link-carrinho-nav" to="/Cart"><img src={carrinho} alt="carrinho" className="icon-carrinho" /></Link>

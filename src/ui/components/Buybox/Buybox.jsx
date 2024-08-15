@@ -1,43 +1,66 @@
-import React, { useContext } from 'react';
-import Gallery from '@components/Gallery/Gallery';
-import ProductOptions from '@components/ProductOptions/ProductOptions';
-import { CartContext } from '@context/CartContext';
+import React, { useState } from 'react';
 import '@styles/Components/Buybox/Buybox.css';
 
-function BuyBox({ productName, reference, rating, price, description, images, sizes, colors }) {
-  const { addToCart } = useContext(CartContext);
+const Buybox = ({ produto }) => {
+  const [quantidade, setQuantidade] = useState(1);
+  const [tamanhoSelecionado, setTamanhoSelecionado] = useState(null);
 
-  const product = {
-    name: productName,
-    reference,
-    rating,
-    price,
-    description,
-    images,
-    sizes,
-    colors,
+  const handleQuantidadeChange = (e) => {
+    setQuantidade(parseInt(e.target.value));
   };
 
-  const handleAddToCart = () => {
-    addToCart(product);
-    alert("Produto adicionado ao carrinho!");
+  const handleTamanhoSelecionado = (tamanho) => {
+    setTamanhoSelecionado(tamanho);
   };
+
+  const adicionarAoCarrinho = () => {
+    if (!tamanhoSelecionado) {
+      alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
+      return;
+    }
+    console.log(`Adicionado ao carrinho: ${produto.nome}, Tamanho: ${tamanhoSelecionado}, Quantidade: ${quantidade}`);
+  };
+
+  if (!produto) {
+    return <div>Produto não encontrado.</div>;
+  }
 
   return (
-    <div className="buyBox">
-      <h2>{product.name}</h2>
-      <p>Reference: {product.reference}</p>
-      <p>Rating: {product.rating}</p>
-      <p>Price: {product.price}</p>
-      <p>Description: {product.description}</p>
-      <Gallery images={product.images} />
-      <ProductOptions sizes={product.sizes} colors={product.colors} />
+    <div className="buybox-container">
+      <h2>{produto.nome}</h2>
+      <p className="produto-preco">R${produto.preco?.toFixed(2)}</p>
 
-      <button className="add-to-cart-btn" onClick={handleAddToCart}>
+      <div className="tamanhos-disponiveis">
+        <h3>Tamanhos Disponíveis</h3>
+        <div className="tamanhos-opcoes">
+          {produto.tamanhos?.map((tamanho) => (
+            <button
+              key={tamanho}
+              className={`tamanho-opcao ${tamanhoSelecionado === tamanho ? 'selected' : ''}`}
+              onClick={() => handleTamanhoSelecionado(tamanho)}
+            >
+              {tamanho}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="quantidade-container">
+        <label htmlFor="quantidade">Quantidade:</label>
+        <input
+          type="number"
+          id="quantidade"
+          min="1"
+          value={quantidade}
+          onChange={handleQuantidadeChange}
+        />
+      </div>
+
+      <button className="adicionar-carrinho-btn" onClick={adicionarAoCarrinho}>
         Adicionar ao Carrinho
       </button>
     </div>
   );
-}
+};
 
-export default BuyBox;
+export default Buybox;

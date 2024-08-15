@@ -1,40 +1,52 @@
-import React, { useContext } from "react";
-import Layout from "@components/Layout/Layout";
-import CartItem from "@components/CartItem/CartItem";
-import CartSummary from "@components/CartSummary/CartSummary";
-import { CartContext } from '@context/CartContext';
-import "@styles/pages/Cartpage/Cartpage.css";
+import React from 'react';
+import '@styles/pages/Cartpage/Cartpage.css';
 
-function CartPage() {
-  const { cart, removeFromCart } = useContext(CartContext);
-
-  const totalItemsCount = cart.reduce((sum, item) => sum + (item.quantidade || 1), 0);
-  const totalPriceAmount = cart.reduce((sum, item) => sum + (item.precoComDesconto || item.preco) * (item.quantidade || 1), 0);
+const CartPage = ({ carrinho = [], removerItem, atualizarQuantidade }) => {
+  const calcularTotal = () => {
+    return carrinho.reduce((total, item) => total + item.preco * item.quantidade, 0).toFixed(2);
+  };
 
   return (
-    <Layout>
-      <div className="cart-page">
-        <div className="cart-content">
-          <div className="cart-header">
-            <h2>MEU CARRINHO ({totalItemsCount} itens)</h2>
-            <h2>QUANTIDADE</h2>
-            <h2>UNITÁRIO</h2>
-            <h2>TOTAL</h2>
-          </div>
-          {cart.map(item => (
-            <CartItem 
-              key={item.id} 
-              item={item} 
-              onRemove={removeFromCart} 
-              onIncrease={() => { /* lógica para aumentar a quantidade */ }} 
-              onDecrease={() => { /* lógica para diminuir a quantidade */ }} 
-            />
-          ))}
-        </div>
-        <CartSummary totalPrice={totalPriceAmount.toFixed(2)} />
+    <div className="cart-page">
+      <h1>Meu Carrinho</h1>
+      <div className="cart-items">
+        {carrinho.length === 0 ? (
+          <p>Seu carrinho está vazio.</p>
+        ) : (
+          carrinho.map((item, index) => (
+            <div key={index} className="cart-item">
+              <img src={item.imagem} alt={item.nome} className="cart-item-imagem" />
+              <div className="cart-item-detalhes">
+                <h2>{item.nome}</h2>
+                <p>Preço: R${item.preco.toFixed(2)}</p>
+                <label>
+                  Quantidade:
+                  <input
+                    type="number"
+                    min="1"
+                    value={item.quantidade}
+                    onChange={(e) => atualizarQuantidade(index, parseInt(e.target.value))}
+                  />
+                </label>
+                <button
+                  className="remover-item-btn"
+                  onClick={() => removerItem(index)}
+                >
+                  Remover
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
-    </Layout>
+      <div className="cart-summary">
+        <h2>Total: R${calcularTotal()}</h2>
+        <button className="finalizar-compra-btn">
+          Finalizar Compra
+        </button>
+      </div>
+    </div>
   );
-}
+};
 
 export default CartPage;

@@ -1,30 +1,82 @@
-.buyBox {
+.buybox-container {
+  border: 1px solid #ddd;
+  border-radius: 10px;
   padding: 20px;
-  background-color: var(--white);
-  border: 1px solid var(--light-gray-2);
-  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.buyBox h2 {
+.buybox-container h2 {
   font-size: 1.5rem;
+  color: #333;
   margin-bottom: 10px;
 }
 
-.buyBox p {
-  margin-bottom: 5px;
+.produto-preco {
+  font-size: 1.25rem;
+  color: #f36;
+  margin-bottom: 20px;
 }
 
-.add-to-cart-btn {
-  background-color: #ff9800;
-  color: white;
+.tamanhos-disponiveis {
+  margin-bottom: 20px;
+}
+
+.tamanhos-opcoes {
+  display: flex;
+  gap: 10px;
+}
+
+.tamanho-opcao {
   padding: 10px 20px;
-  border: none;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
+  transition: background-color 0.2s ease;
 }
 
-.add-to-cart-btn:hover {
-  background-color: #e68900;
+.tamanho-opcao.selected {
+  background-color: #333;
+  color: white;
+}
+
+.tamanho-opcao:hover {
+  background-color: #ddd;
+}
+
+.quantidade-container {
+  margin-bottom: 20px;
+}
+
+.quantidade-container label {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.quantidade-container input {
+  width: 50px;
+  padding: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.adicionar-carrinho-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #f36;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.adicionar-carrinho-btn:hover {
+  background-color: #d32;
 }

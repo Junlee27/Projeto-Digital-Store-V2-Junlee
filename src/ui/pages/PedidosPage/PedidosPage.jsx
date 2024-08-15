@@ -1,50 +1,77 @@
-import React from 'react';
-import Layout from '@components/Layout/Layout';
-import sapatoAzul from '@assets/img/sapato_card.png';
+import React, { useState, useEffect } from 'react';
+import Header from '@components/Header/Header';
+import Footer from '@components/Footer/Footer';
+import '@styles/pages/PedidosPage/PedidosPage.css';
+import sapatoImg from '@assets/img/sapato_card.png';
 
-function PedidosPage() {
-  const orders = [
-    {
-      id: 1,
-      products: [
-        { name: 'Camiseta Supreme', image: sapatoAzul },
-        { name: 'Tênis Nike', image: sapatoAzul }
-      ],
-      total: 'R$ 419,98',
-      status: 'Entregue'
-    },
-    {
-      id: 2,
-      products: [
-        { name: 'Fone de Ouvido', image: sapatoAzul }
-      ],
-      total: 'R$ 229,99',
-      status: 'A Caminho'
-    }
-  ];
+const PedidosPage = () => {
+  const [pedidos, setPedidos] = useState([]);
+
+  useEffect(() => {
+    const fetchPedidos = async () => {
+      const pedidosMock = [
+        {
+          id: 1,
+          data: '2023-08-15',
+          total: 150.00,
+          itens: [
+            { id: 1, nome: 'Produto 1', quantidade: 2, preco: 50.00, imagem: sapatoImg },
+            { id: 2, nome: 'Produto 2', quantidade: 1, preco: 50.00, imagem: sapatoImg },
+          ],
+        },
+        {
+          id: 2,
+          data: '2023-08-14',
+          total: 200.00,
+          itens: [
+            { id: 3, nome: 'Produto 3', quantidade: 1, preco: 200.00, imagem: sapatoImg },
+          ],
+        },
+      ];
+      setPedidos(pedidosMock);
+    };
+
+    fetchPedidos();
+  }, []);
+
+  const toggleDetalhes = (index) => {
+    const novosPedidos = [...pedidos];
+    novosPedidos[index].mostrarDetalhes = !novosPedidos[index].mostrarDetalhes;
+    setPedidos(novosPedidos);
+  };
 
   return (
-    <Layout>
-      <h1>Meus Pedidos</h1>
-      <ul>
-        {orders.map((order) => (
-          <li key={order.id}>
-            <h2>Pedido #{order.id}</h2>
-            <p>Status: {order.status}</p>
-            <div>
-              {order.products.map((product, index) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                  <img src={product.image} alt={product.name} style={{ width: '50px', marginRight: '10px' }} />
-                  <p>{product.name}</p>
+    <>
+      <Header />
+      <div className="pedidos-page">
+        <h1>Meus Pedidos</h1>
+        <div className="pedidos-list">
+          {pedidos.map((pedido, index) => (
+            <div key={pedido.id} className="pedido-item">
+              <div className="pedido-resumo" onClick={() => toggleDetalhes(index)}>
+                <div>Pedido #{pedido.id}</div>
+                <div>{new Date(pedido.data).toLocaleDateString()}</div>
+                <div>Total: R${pedido.total.toFixed(2)}</div>
+              </div>
+              {pedido.mostrarDetalhes && (
+                <div className="pedido-detalhes">
+                  {pedido.itens.map(item => (
+                    <div key={item.id} className="pedido-item-detalhe">
+                      <img src={item.imagem} alt={item.nome} className="pedido-item-imagem" />
+                      <div>{item.nome}</div>
+                      <div>Quantidade: {item.quantidade}</div>
+                      <div>Preço: R${item.preco.toFixed(2)}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-            <p>Total: {order.total}</p>
-          </li>
-        ))}
-      </ul>
-    </Layout>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </>
   );
-}
+};
 
 export default PedidosPage;

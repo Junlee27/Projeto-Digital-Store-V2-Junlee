@@ -13,19 +13,6 @@ function ProductViewPage() {
   const [character, setCharacter] = useState([]);
   const { addToCart } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://669111dd26c2a69f6e8e4d94.mockapi.io/products/products");
-        setCharacter(response.data);
-        console.log("API response:", response.data);
-      } catch (error) {
-        console.log(`O erro foi ${error}`);
-      }
-    };
-    fetchData();
-  }, []);
-
   const product = {
     name: 'Tênis Nike Revolution 6',
     reference: '38416711',
@@ -39,6 +26,19 @@ function ProductViewPage() {
     sizes: ['39', '40', '41', '42'],
     colors: ['#ff0000', '#00ff00', '#0000ff', '#ff00ff'],
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://669111dd26c2a69f6e8e4d94.mockapi.io/products/products");
+        setCharacter(response.data);
+        console.log("API response:", response.data);
+      } catch (error) {
+        console.log(`O erro foi ${error}`);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <Layout>
