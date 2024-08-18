@@ -1,4 +1,5 @@
-import { Product, Category } from '../models/index.js';
+import { Product, Category } from '@models/index.js';
+import { Op } from 'sequelize';
 
 export default {
   async getAll(req, res) {

@@ -1,41 +1,73 @@
-const request = require('supertest');
-const app = require('../src/app');
-const { Product } = require('../src/models');
-const jwt = require('jsonwebtoken');
-const jwtConfig = require('../config/jwt');
+import request from 'supertest';
+import app from '../src/server';
+import { Product } from '../src/models/Product';
+import jwt from 'jsonwebtoken';
+import jwtConfig from '../config/jwt';
 
 describe('Product Routes', () => {
   let token;
-  let productId;
+  let testProduct;
 
-  beforeAll(() => {
-    token = jwt.sign({ id: 1, email: 'admin@mail.com' }, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn });
+  beforeAll(async () => {
+    const adminUser = await User.create({
+      firstname: 'Admin',
+      surname: 'User',
+      email: 'admin@mail.com',
+      password: 'password'
+    });
+
+    token = jwt.sign({ id: adminUser.id, email: adminUser.email }, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn });
+
+    testProduct = await Product.create({
+      name: 'Test Product',
+      price: 19.99,
+      description: 'This is a test product'
+    });
   });
 
-  it('should create a product successfully', async () => {
+  afterAll(async () => {
+    await Product.destroy({ where: { name: 'Test Product' } });
+  });
+
+  test('should create a product successfully', async () => {
+    const data = { name: 'New Product', price: 29.99, description: 'A new test product' };
     const res = await request(app)
-      .post('/v1/product')
+      .post('/products')
       .set('Authorization', `Bearer ${token}`)
-      .send({
-        enabled: true,
-        name: 'New Product',
-        slug: 'new-product',
-        stock: 10,
-        description: 'Product description',
-        price: 99.99,
-        price_with_discount: 79.99,
-      });
+      .send(data);
 
-    productId = res.body.id;
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('id');
+    expect(res.statusCode).toBe(201);
+    expect(res.body.name).toBe(data.name);
   });
 
-  it('should get a product by ID', async () => {
+  test('should get a product by ID', async () => {
     const res = await request(app)
-      .get(`/v1/product/${productId}`);
+      .get(`/products/${testProduct.id}`)
+      .set('Authorization', `Bearer ${token}`);
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('id', productId);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.name).toBe('Test Product');
+  });
+
+  test('should update a product successfully', async () => {
+    const updatedData = { name: 'Updated Product', price: 39.99 };
+    const res = await request(app)
+      .put(`/products/${testProduct.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(updatedData);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.name).toBe(updatedData.name);
+  });
+
+  test('should delete a product successfully', async () => {
+    const res = await request(app)
+      .delete(`/products/${testProduct.id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+
+    const deletedProduct = await Product.findByPk(testProduct.id);
+    expect(deletedProduct).toBeNull();
   });
 });

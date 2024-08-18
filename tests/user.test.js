@@ -1,44 +1,63 @@
-const request = require('supertest');
-const app = require('../src/app');
-const { User } = require('../src/models');
-const jwt = require('jsonwebtoken');
-const jwtConfig = require('../config/jwt');
+import request from 'supertest';
+import app from '../src/server';
+import { User } from '../src/models/User';
+import jwt from 'jsonwebtoken';
+import jwtConfig from '../config/jwt';
 
 describe('User Routes', () => {
   let token;
-  let userId;
+  let testUser;
 
   beforeAll(async () => {
-    const user = await User.create({
-      firstname: 'Test',
+    const adminUser = await User.create({
+      firstname: 'Admin',
       surname: 'User',
-      email: 'user@mail.com',
-      password: 'password123',
+      email: 'admin@mail.com',
+      password: 'password'
     });
 
-    userId = user.id;
-    token = jwt.sign({ id: user.id, email: user.email }, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn });
+    token = jwt.sign({ id: adminUser.id, email: adminUser.email }, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn });
+
+    testUser = await User.create({
+      firstname: 'Test',
+      surname: 'User',
+      email: 'testuser@mail.com',
+      password: 'password'
+    });
   });
 
-  it('should get a user by ID', async () => {
+  afterAll(async () => {
+    await User.destroy({ where: { email: ['admin@mail.com', 'testuser@mail.com'] } });
+  });
+
+  test('should get a user by ID', async () => {
     const res = await request(app)
-      .get(`/v1/user/${userId}`)
+      .get(`/users/${testUser.id}`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('id', userId);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.email).toBe(testUser.email);
   });
 
-  it('should update a user successfully', async () => {
+  test('should update a user successfully', async () => {
+    const updatedData = { firstname: 'Updated' };
     const res = await request(app)
-      .put(`/v1/user/${userId}`)
+      .put(`/users/${testUser.id}`)
       .set('Authorization', `Bearer ${token}`)
-      .send({
-        firstname: 'Updated',
-        surname: 'User',
-        email: 'updateduser@mail.com',
-      });
+      .send(updatedData);
 
-    expect(res.statusCode).toEqual(204);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.firstname).toBe(updatedData.firstname);
+  });
+
+  test('should delete a user successfully', async () => {
+    const res = await request(app)
+      .delete(`/users/${testUser.id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+
+    const deletedUser = await User.findByPk(testUser.id);
+    expect(deletedUser).toBeNull();
   });
 });

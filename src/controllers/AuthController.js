@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/index.js';
-import jwtConfig from '../../config/jwt.js';
+import { User } from '@models/index.js';
+import jwtConfig from '@config/jwt.js';
 
 export default {
   async register(req, res) {
@@ -33,5 +33,19 @@ export default {
     } catch (error) {
       return res.status(400).json({ error: 'Erro ao autenticar o usuário' });
     }
-  }
+  },
+
+  async getProfile(req, res) {
+    try {
+      const user = await User.findByPk(req.userId, {
+        attributes: ['id', 'firstname', 'surname', 'email'],
+      });
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado' });
+      }
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(400).json({ error: 'Erro ao buscar o perfil' });
+    }
+  },
 };

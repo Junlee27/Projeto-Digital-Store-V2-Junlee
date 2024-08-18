@@ -1,36 +1,59 @@
-const request = require('supertest');
-const app = require('../src/app');
-const { User } = require('../src/models');
+import request from 'supertest';
+import app from '../src/server';
+import { User } from '../src/models/User';
+import jwt from 'jsonwebtoken';
+import jwtConfig from '../config/jwt';
 
 describe('Auth Routes', () => {
+  let testUser;
+
   beforeAll(async () => {
-    await User.destroy({ where: {} });
+    testUser = await User.create({
+      firstname: 'Auth',
+      surname: 'User',
+      email: 'authuser@mail.com',
+      password: 'password'
+    });
   });
 
-  it('should register a user successfully', async () => {
-    const res = await request(app)
-      .post('/v1/auth/register')
-      .send({
-        firstname: 'Test',
-        surname: 'User',
-        email: 'testuser@mail.com',
-        password: 'password123',
-      });
-
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('id');
-    expect(res.body).toHaveProperty('firstname', 'Test');
+  afterAll(async () => {
+    await User.destroy({ where: { email: 'authuser@mail.com' } });
   });
 
-  it('should login a user successfully', async () => {
+  test('should authenticate and return a token', async () => {
     const res = await request(app)
-      .post('/v1/auth/login')
+      .post('/auth/login')
       .send({
-        email: 'testuser@mail.com',
-        password: 'password123',
+        email: 'authuser@mail.com',
+        password: 'password',
       });
 
-    expect(res.statusCode).toEqual(200);
+    expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty('token');
+
+    const decoded = jwt.verify(res.body.token, jwtConfig.secret);
+    expect(decoded.email).toBe('authuser@mail.com');
+  });
+
+  test('should not authenticate with wrong credentials', async () => {
+    const res = await request(app)
+      .post('/auth/login')
+      .send({
+        email: 'authuser@mail.com',
+        password: 'wrongpassword',
+      });
+
+    expect(res.statusCode).toBe(401);
+  });
+
+  test('should return user details with a valid token', async () => {
+    const token = jwt.sign({ id: testUser.id, email: testUser.email }, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn });
+
+    const res = await request(app)
+      .get('/auth/me')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.email).toBe('authuser@mail.com');
   });
 });

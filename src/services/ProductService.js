@@ -1,4 +1,4 @@
-import { Product } from '../models/index.js';
+import { Product } from '@models/index.js';
 
 class ProductService {
   async createProduct(data) {
@@ -8,8 +8,8 @@ class ProductService {
 
   async getProductById(id) {
     return await Product.findByPk(id, {
+      attributes: ['id', 'name', 'price', 'description'],
       include: ['categories', 'images', 'options'],
-      attributes: ['id', 'name', 'slug', 'price', 'price_with_discount', 'stock', 'description'],
     });
   }
 

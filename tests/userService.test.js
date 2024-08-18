@@ -1,71 +1,68 @@
-const UserService = require('../src/services/UserService');
-const { User } = require('../src/models');
-
-jest.mock('../src/models', () => ({
-  User: {
-    create: jest.fn(),
-    findByPk: jest.fn(),
-    destroy: jest.fn(),
-    update: jest.fn(),
-  },
-}));
+import { UserService } from '../src/services/UserService';
+import { User } from '../src/models/User';
 
 describe('UserService', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
+  let testUser;
+
+  beforeAll(async () => {
+    testUser = await User.create({
+      firstname: 'Service',
+      surname: 'User',
+      email: 'serviceuser@mail.com',
+      password: 'password'
+    });
   });
 
-  it('should create a user', async () => {
-    const data = { firstname: 'Test', surname: 'User', email: 'test@mail.com', password: 'password123' };
-    User.create.mockResolvedValue(data);
+  afterAll(async () => {
+    await User.destroy({ where: { email: 'serviceuser@mail.com' } });
+  });
 
+  afterEach(async () => {
+    await User.destroy({ where: { email: 'newuser@mail.com' } });
+  });
+
+  test('should create a user', async () => {
+    const data = { firstname: 'New', surname: 'User', email: 'newuser@mail.com', password: 'password' };
     const result = await UserService.createUser(data);
 
-    expect(User.create).toHaveBeenCalledWith(data);
-    expect(result).toEqual(data);
+    expect(result.firstname).toBe(data.firstname);
+    expect(result.email).toBe(data.email);
   });
 
-  it('should get user by ID', async () => {
-    const user = { id: 1, firstname: 'Test', surname: 'User', email: 'test@mail.com' };
-    User.findByPk.mockResolvedValue(user);
+  test('should get user by ID', async () => {
+    const result = await UserService.getUserById(testUser.id);
 
-    const result = await UserService.getUserById(1);
-
-    expect(User.findByPk).toHaveBeenCalledWith(1, {
-      attributes: ['id', 'firstname', 'surname', 'email'],
-    });
-    expect(result).toEqual(user);
+    expect(result).toBeDefined();
+    expect(result.email).toBe('serviceuser@mail.com');
   });
 
-  it('should update a user', async () => {
-    const user = { update: jest.fn(), id: 1 };
-    User.findByPk.mockResolvedValue(user);
-
+  test('should update a user', async () => {
     const data = { firstname: 'Updated', surname: 'User' };
-    const result = await UserService.updateUser(1, data);
+    const result = await UserService.updateUser(testUser.id, data);
 
-    expect(User.findByPk).toHaveBeenCalledWith(1);
-    expect(user.update).toHaveBeenCalledWith(data);
-    expect(result).toEqual(user);
+    expect(result.firstname).toBe(data.firstname);
+    expect(result.surname).toBe(data.surname);
   });
 
-  it('should delete a user', async () => {
-    const user = { destroy: jest.fn(), id: 1 };
-    User.findByPk.mockResolvedValue(user);
+  test('should delete a user', async () => {
+    const userToDelete = await User.create({
+      firstname: 'Delete',
+      surname: 'User',
+      email: 'deleteuser@mail.com',
+      password: 'password'
+    });
 
-    const result = await UserService.deleteUser(1);
+    const result = await UserService.deleteUser(userToDelete.id);
 
-    expect(User.findByPk).toHaveBeenCalledWith(1);
-    expect(user.destroy).toHaveBeenCalled();
     expect(result).toBe(true);
+
+    const deletedUser = await User.findByPk(userToDelete.id);
+    expect(deletedUser).toBeNull();
   });
 
-  it('should return false if user not found for delete', async () => {
-    User.findByPk.mockResolvedValue(null);
+  test('should return false if user not found for delete', async () => {
+    const result = await UserService.deleteUser(9999);
 
-    const result = await UserService.deleteUser(1);
-
-    expect(User.findByPk).toHaveBeenCalledWith(1);
     expect(result).toBe(false);
   });
 });

@@ -5,8 +5,16 @@ module.exports = {
   testEnvironment: 'node',
   verbose: true,
   moduleNameMapper: {
-    '^@models(.*)$': '<rootDir>/src/models$1',  // Mapeia @models para src/models
-    '^@controllers(.*)$': '<rootDir>/src/controllers$1',  // Mapeia @controllers para src/controllers
-    '^@services(.*)$': '<rootDir>/src/services$1',  // Mapeia @services para src/services
+    '^@components/(.*)$': '<rootDir>/src/ui/components/$1',
+    '^@pages/(.*)$': '<rootDir>/src/ui/pages/$1',
+    '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^@context/(.*)$': '<rootDir>/src/context/$1',
+    '^@routes/(.*)$': '<rootDir>/src/routes/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
+    '^@models/(.*)$': '<rootDir>/src/models/$1',
+    '^@controllers/(.*)$': '<rootDir>/src/controllers/$1',
+    '^@middleware/(.*)$': '<rootDir>/src/middleware/$1',
+    '^@config/(.*)$': '<rootDir>/src/config/$1',
   },
 };
