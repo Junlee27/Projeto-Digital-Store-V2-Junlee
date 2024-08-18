@@ -12,7 +12,7 @@ import CriarContaPage from "@pages/CriarContaPage/CriarContaPage";
 import CriarFormulario from "@pages/CriarFormularioPage/CriarFormularioPage";
 import PedidosPage from "@pages/PedidosPage/PedidosPage";
 import Informacoes from "@pages/InformacoesPage/InformacoesPage";
-import CategoriasPage from "@pages/CategoriasPage/CategoriasPage"; // Importando a nova página de Categorias
+import CategoriasPage from "@pages/CategoriasPage/CategoriasPage";
 import Error from "@pages/Error404/Error404";
 import { CartProvider } from '@context/CartContext';
 

@@ -2,13 +2,22 @@
 
 ## Estrutura
 ```
-projeto-digital-store/
+Estrutura atualizada:
+projeto-digital-store-v2
+|-- config/
+|-- dist/
 |-- node_modules/
 |-- public/
 |-- src/
 |   |-- assets/
 |   |   |-- favicon/
 |   |   |-- img/
+|   |-- context/
+|   |-- controllers/
+|   |-- middleware/
+|   |-- models/
+|   |-- routes/
+|   |-- services/
 |   |-- styles/
 |   |   |-- Components/
 |   |   |   |-- Buybox/
@@ -29,8 +38,10 @@ projeto-digital-store/
 |   |   |   |-- ProductOptions/
 |   |   |-- pages/
 |   |   |   |-- CartPage/
+|   |   |   |-- CategoriasPage/
 |   |   |   |-- Error404/
 |   |   |   |-- HomePage/
+|   |   |   |-- PedidosPage/
 |   |   |   |-- ProductListingPage/
 |   |   |   |-- ProductViewPage/
 |   |-- ui/
@@ -54,6 +65,7 @@ projeto-digital-store/
 |   |   |   |-- ProductOptions/
 |   |   |-- pages/  
 |   |   |   |-- CartPage/
+|   |   |   |-- CategoriasPage/
 |   |   |   |-- ConfirmarCompraPage/
 |   |   |   |-- CriarContaPage/
 |   |   |   |-- CriarFormularioPage/
@@ -66,12 +78,16 @@ projeto-digital-store/
 |   |   |   |-- ProductViewPage/
 |   |   |   |-- SucessoPage/
 |   |-- App.css
+|   |-- app.js
 |   |-- App.jsx
 |   |-- firebaseConfig.js
 |   |-- main.jsx
-|-- .eslintrc.cjs
+|   |-- server.js
+|-- tests/
+|-- .env
 |-- .gitignore
 |-- index.html
+|-- jest.config.js
 |-- package-lock.json
 |-- package.json
 |-- README.md
