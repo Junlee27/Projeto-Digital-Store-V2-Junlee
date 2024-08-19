@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types'; 
 import '@styles/Components/Buybox/Buybox.css';
 
 const Buybox = ({ produto }) => {
@@ -61,6 +62,14 @@ const Buybox = ({ produto }) => {
       </button>
     </div>
   );
+};
+
+Buybox.propTypes = {
+  produto: PropTypes.shape({
+    nome: PropTypes.string.isRequired,
+    preco: PropTypes.number.isRequired,
+    tamanhos: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
 };
 
 export default Buybox;
