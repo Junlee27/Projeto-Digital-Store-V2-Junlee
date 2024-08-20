@@ -2,21 +2,30 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../../config/database.js';
 
 const ProductCategory = sequelize.define('ProductCategory', {
-  product_id: {
+  productId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Product',
+      model: 'Products',
       key: 'id',
     },
   },
-  category_id: {
+  categoryId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Category',
+      model: 'Categories',
       key: 'id',
     },
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  }
 }, {
+  tableName: 'ProductCategories',
   timestamps: true,
 });
 

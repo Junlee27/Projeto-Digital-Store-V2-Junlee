@@ -1,4 +1,4 @@
-import { Product, Category } from '@models/index.js';
+import { Product, Category } from '../models/index.js';
 import { Op } from 'sequelize';
 
 export default {
@@ -44,7 +44,7 @@ export default {
     }
   },
 
-  async create(req, res) {
+  async createProduct(req, res) {
     const { enabled, name, slug, stock, description, price, price_with_discount, category_ids } = req.body;
     try {
       const product = await Product.create({
@@ -63,7 +63,7 @@ export default {
     }
   },
 
-  async update(req, res) {
+  async updateProduct(req, res) {
     const { id } = req.params;
     const { enabled, name, slug, stock, description, price, price_with_discount, category_ids } = req.body;
     try {
@@ -87,7 +87,7 @@ export default {
     }
   },
 
-  async delete(req, res) {
+  async deleteProduct(req, res) {
     const { id } = req.params;
     try {
       const product = await Product.findByPk(id);

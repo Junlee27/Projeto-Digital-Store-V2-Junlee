@@ -1,4 +1,3 @@
-import React from 'react';
 import '@styles/Components/CartSummary/CartSummary.css';
 
 function CartSummary({ totalPrice }) {

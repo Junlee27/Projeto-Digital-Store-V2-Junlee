@@ -1,300 +1,108 @@
-# READ ME - Projeto de Junlee Araújo Rozendo
+# Projeto Digital Store V2
+Bem-vindo ao Digital Store V2 do Junlee! Este projeto é uma aplicação de e-commerce desenvolvida com Node.js, React e várias outras tecnologias. Este README fornecerá uma visão geral do projeto, como configurá-lo e como contribuir.
 
-## Estrutura
+## Sumário
+- [Visão Geral](#visão-geral)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Configuração do Ambiente](#configuração-do-ambiente)
+- [Executando o Projeto](#executando-o-projeto)
+- [Contribuindo](#contribuindo)
+- [Licença](#licença)
+
+## Visão Geral
+O Digital Store V2 é uma aplicação web de e-commerce que permite aos usuários navegar por produtos, adicionar itens ao carrinho e realizar compras. A aplicação é construída com uma arquitetura moderna, utilizando Node.js para o backend e React para o frontend.
+
+## Tecnologias Utilizadas
+- **Frontend:**
+  - [React](https://reactjs.org/)
+  - [Vite](https://vitejs.dev/) para o build e desenvolvimento rápido
+  - [CSS](https://www.w3.org/Style/CSS/) para estilização
+  - [React Context API](https://reactjs.org/docs/context.html) para gerenciamento de estado
+
+- **Backend:**
+  - [Node.js](https://nodejs.org/) com [Express](https://expressjs.com/) para a criação de APIs
+  - [Sequelize](https://sequelize.org/) para ORM (mapeamento objeto-relacional)
+  - [JWT](https://jwt.io/) para autenticação e autorização
+  - [Bcrypt](https://www.npmjs.com/package/bcrypt) para hash de senhas
+
+- **Banco de Dados:**
+  - [PostgreSQL](https://www.postgresql.org/)
+
+- **Outras Ferramentas:**
+  - [dotenv](https://www.npmjs.com/package/dotenv) para gerenciamento de variáveis de ambiente
+  - [ESLint](https://eslint.org/) para linting de código
+
+## Estrutura do Projeto
+A estrutura do projeto é organizada da seguinte maneira:
 ```
-Estrutura atualizada:
-projeto-digital-store-v2
-|-- config/
-|-- dist/
-|-- node_modules/
-|-- public/
-|-- src/
-|   |-- assets/
-|   |   |-- favicon/
-|   |   |-- img/
-|   |-- context/
-|   |-- controllers/
-|   |-- middleware/
-|   |-- models/
-|   |-- routes/
-|   |-- services/
-|   |-- styles/
-|   |   |-- Components/
-|   |   |   |-- Buybox/
-|   |   |   |-- CardDestaque/
-|   |   |   |-- Cards/
-|   |   |   |-- Carousel/
-|   |   |   |-- CarouselMenor/
-|   |   |   |-- CartItem/
-|   |   |   |-- CartSummary/
-|   |   |   |-- Destaque/
-|   |   |   |-- Footer/
-|   |   |   |-- Gallery/
-|   |   |   |-- Header/
-|   |   |   |-- HeaderMenor/
-|   |   |   |-- IconDestaque/
-|   |   |   |-- Main/
-|   |   |   |-- ProductCard/
-|   |   |   |-- ProductOptions/
-|   |   |-- pages/
-|   |   |   |-- CartPage/
-|   |   |   |-- CategoriasPage/
-|   |   |   |-- Error404/
-|   |   |   |-- HomePage/
-|   |   |   |-- PedidosPage/
-|   |   |   |-- ProductListingPage/
-|   |   |   |-- ProductViewPage/
-|   |-- ui/
-|   |   |-- Components/
-|   |   |   |-- Buybox/
-|   |   |   |-- CardDestaque/
-|   |   |   |-- Cards/
-|   |   |   |-- Carousel/
-|   |   |   |-- CarouselMenor/
-|   |   |   |-- CartItem/
-|   |   |   |-- CartSummary/
-|   |   |   |-- Destaque/
-|   |   |   |-- Footer/
-|   |   |   |-- Gallery/
-|   |   |   |-- Header/
-|   |   |   |-- HeaderMenor/
-|   |   |   |-- IconDestaque/
-|   |   |   |-- Layout/
-|   |   |   |-- Main/
-|   |   |   |-- ProductCard/
-|   |   |   |-- ProductOptions/
-|   |   |-- pages/  
-|   |   |   |-- CartPage/
-|   |   |   |-- CategoriasPage/
-|   |   |   |-- ConfirmarCompraPage/
-|   |   |   |-- CriarContaPage/
-|   |   |   |-- CriarFormularioPage/
-|   |   |   |-- Error404/
-|   |   |   |-- HomePage/
-|   |   |   |-- InformacoesPage/
-|   |   |   |-- LoginPage/
-|   |   |   |-- PedidosPage/
-|   |   |   |-- ProductListingPage/
-|   |   |   |-- ProductViewPage/
-|   |   |   |-- SucessoPage/
-|   |-- App.css
-|   |-- app.js
-|   |-- App.jsx
-|   |-- firebaseConfig.js
-|   |-- main.jsx
-|   |-- server.js
-|-- tests/
-|-- .env
-|-- .gitignore
-|-- index.html
-|-- jest.config.js
-|-- package-lock.json
-|-- package.json
-|-- README.md
-|-- vite.config.js
+projeto-digital-store-v2/
+├── config/ # Configurações do projeto (database, JWT, etc.)
+├── dist/ # Arquivos de build
+├── node_modules/ # Dependências do projeto
+├── public/ # Arquivos estáticos públicos
+├── src/ # Código fonte
+│ ├── assets/ # Imagens e outros arquivos estáticos
+│ ├── context/ # Contextos React
+│ ├── controllers/ # Controladores para a API
+│ ├── middleware/ # Middleware Express
+│ ├── models/ # Modelos Sequelize
+│ ├── routes/ # Rotas da API
+│ ├── services/ # Serviços para lógica de negócios
+│ ├── styles/ # Arquivos CSS
+│ ├── ui/ # Componentes da interface do usuário
+│ ├── App.jsx # Componente principal do React
+│ ├── app.js # Configuração do Express
+│ ├── firebaseConfig.js # Configuração do Firebase
+│ ├── main.jsx # Entrada do React
+│ └── server.js # Entrada do servidor Express
+├── tests/ # Testes do projeto
+├── .babelrc # Configuração do Babel
+├── .env # Variáveis de ambiente
+├── .gitignore # Arquivos e pastas a serem ignorados pelo Git
+├── README.md # Este arquivo
+└── package.json # Gerenciador de pacotes
 ```
+## Configuração do Ambiente
+1. **Clone o repositório:**
 
-## Componentes
+   git clone https://github.com/Junlee27/Projeto-Digital-Store-V2-Junlee
+   cd projeto-digital-store-v2
 
-**Buybox** Exibe informações detalhadas de um produto, incluindo nome, referência, avaliação, preço, descrição e opções.
-**CardDestaque** Exibe cartões de destaque na página principal.
-**Cards** Exibe cartões genéricos de produtos.
-**Carousel** Exibe um carrossel de imagens para destaque de produtos.
-**CarouselMenor** Exibe um carrossel menor para destaque adicional.
-**CartItem** Exibe itens individuais no carrinho de compras.
-**CartSummary** Resumo do carrinho de compras.
-**Destaque** Exibe seções de destaque no site.
-**Footer** Componente de rodapé com informações de contato e links úteis.
-**Gallery** Exibe uma galeria de imagens de produtos.
-**Header** Componente de cabeçalho com navegação principal.
-**HeaderMenor** Variante menor do componente de cabeçalho.
-**IconDestaque** Exibe ícones de destaque.
-**Layout** Componente principal que envolve o conteúdo da página.
-**Main** Componente principal do layout da página.
-**ProductCard** Exibe cartões de produtos.
-**ProductOptions** Exibe opções de produtos como tamanhos e cores.
-
-## Páginas
-
-**CartPage** Página do carrinho de compras.
-**ConfirmarCompraPage** Página de confirmação de compra.
-**CriarContaPage** Página para criação de nova conta de usuário.
-**CriarFormularioPage** Página para criação de formulários personalizados.
-**Error404** Página de erro para rotas não encontradas.
-**HomePage** Página inicial com produtos e ofertas principais.
-**InformacoesPage** Página de informações gerais.
-**LoginPage** Página de login para usuários.
-**PedidosPage** Página com histórico de pedidos do usuário.
-**ProductListingPage** Página de listagem de produtos.
-**ProductViewPage** Página de visualização detalhada de um produto.
-**SucessoPage** Página pós-compra bem-sucedida.
-
-## Bibliotecas Utilizadas
-
-**React** Biblioteca JavaScript para construção de interfaces de usuário.
-**axios** Biblioteca para realizar requisições HTTP.
-**Bootstrap** Framework CSS para design responsivo e componentes pré-estilizados.
-**Firebase** Plataforma de desenvolvimento de aplicativos.
-**React Router** Biblioteca para gerenciamento de rotas no React.
-**Vite** Ferramenta de construção e desenvolvimento rápido para projetos front-end.
-
-## Como Utilizar
-
-### Iniciando o Projeto
-
-1. **Instale as dependências**
+2. **Instale as dependências:**
     npm install
 
-2. **Execute o ESLint para verificar o código**
-    npm run lint
+3. **Configure as variáveis de ambiente:**
+Renomeie o arquivo .env.example para .env e adicione suas variáveis de ambiente. Exemplos de variáveis podem incluir:
+DB_HOST=localhost
+DB_USER=usuario
+DB_PASSWORD=senha
+JWT_SECRET=seusegredocabuloso
 
-3. **Inicie o servidor de desenvolvimento**
-    npm run dev
+4. **Configure o banco de dados:**
+Certifique-se de que o PostgreSQL está em execução e configure o banco de dados conforme necessário. As instruções para criar o banco de dados e as tabelas podem estar nos arquivos de migração.
 
-4. **Construa o projeto para produção**
-    npm run build
+5. **Executando o Projeto**
+Execute o servidor backend:
+npm run start:server
+Isso iniciará o servidor Express no backend.
 
-5. **Para pré-visualizar o projeto depois da construção**
-    npm run preview
+6. **Execute o frontend:**
+npm run dev
+Isso iniciará o servidor de desenvolvimento do Vite para o frontend.
 
+Se você deseja contribuir para o projeto:
+- Faça um fork do repositório.
+- Crie uma nova branch para suas alterações:
+    git checkout -b minha-branch
+- Faça suas alterações e commit:
+    git add .
+    git commit -m "Descrição das alterações"
+- Envie suas alterações para o GitHub:
+    git push origin minha-branch
+- Abra um Pull Request.
 
+Licença
+Este projeto está licenciado sob a Licença MIT.   
+Se você tiver alguma dúvida ou encontrar problemas, sinta-se à vontade para abrir uma issue no GitHub.
 
-6. **Se você encontrar problemas com dependências**
-  Caso isso aconteça: Reinstale-as conforme o "package.json":
-    rm -rf node_modules
-    rm -rf package-lock.json
-	  npm install
-	  npm run lint
-	  npm run dev
-	  npm run build
-	  npm run preview
-
-7. **Erros com versões específicas de dependências**
-  Caso tenha problemas com versões específicas, você pode instalar as dependências manualmente. Aqui estão os comandos para instalar todas as versões necessárias de uma vez:
-    rm -rf node_modules
-    rm -rf package-lock.json
-
-    npm install @types/react-dom@18.3.0 @types/react@18.3.3 @vitejs/plugin-react@4.3.1 axios@1.7.2 bootstrap@5.3.3 eslint-plugin-react-hooks@4.6.2 eslint-plugin-react-refresh@0.4.7 eslint-plugin-react@7.34.2 eslint@8.57.0 firebase@10.12.5 react-dom@18.3.1 react-router-dom@6.25.1 react@18.3.1 vite@5.3.1
-
-	  npm run lint
-	  npm run dev
-	  npm run build
-	  npm run preview
-
-8. **Instalação Individual de Dependências**
-  Se precisar instalar ou atualizar apenas uma dependência específica, use um dos comandos abaixo:
-    npm install @types/react-dom@18.3.0
-    npm install @types/react@18.3.3
-    npm install @vitejs/plugin-react@4.3.1
-    npm install axios@1.7.2
-    npm install bootstrap@5.3.3
-    npm install eslint-plugin-react-hooks@4.6.2
-    npm install eslint-plugin-react-refresh@0.4.7
-    npm install eslint-plugin-react@7.34.2
-    npm install eslint@8.57.0
-    npm install firebase@10.12.5
-    npm install react-dom@18.3.1
-    npm install react-router-dom@6.25.1
-    npm install react@18.3.1
-    npm install vite@5.3.1
-	
-	  npm run lint
-	  npm run dev
-	  npm run build
-	  npm run preview
-
-### Utilização de Componentes
-  Os componentes estão localizados na pasta src/ui/Components e src/styles/Components. Você pode importá-los e usá-los nas suas páginas conforme necessário!
-
-    ```jsx
-    import React from 'react';
-    import Header from '@components/Header/Header.jsx'
-    import Footer from '@components/Footer/Footer.jsx'
-
-
-    const Layout = ({ children }) => {
-      return (
-        <div>
-          <Header />
-          {children}
-          <Footer />
-        </div>
-      );
-    };
-
-    export default Layout;
-    ```
-
-### Utilização de Páginas
-  As páginas estão localizadas na pasta src/ui/pages. Utilize React Router para configurar as rotas do seu aplicativo.
-
-    ```jsx
-    import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-    import HomePage from '@pages/HomePage/HomePage';
-    import ProductListingPage from '@pages/ProductListingPage/ProductListingPage';
-    import ProductViewPage from '@pages/ProductViewPage/ProductViewPage';
-    import Error404 from '@pages/Error404/Error404';
-
-    const App = () => (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/products" component={ProductListingPage} />
-          <Route path="/product/:id" component={ProductViewPage} />
-          <Route component={Error404} />
-        </Switch>
-      </Router>
-    );
-
-    export default App;
-    ```
-
-### Utilização de axios
-  Utilize axios para fazer requisições HTTP em seus componentes.
-
-    ```jsx
-    import axios from 'axios';
-    import React, { useState, useEffect } from 'react';
-
-    const HomePage = () => {
-      const [products, setProducts] = useState([]);
-
-      useEffect(() => {
-        const fetchData = async () => {
-          const result = await axios.get('https://api.exemplo.com/produtos');
-          setProducts(result.data);
-        };
-
-        fetchData();
-      }, []);
-
-      return (
-        <div>
-          {products.map(product => (
-            <div key={product.id}>{product.name}</div>
-          ))}
-        </div>
-      );
-    };
-
-    export default HomePage;
-    ```
-
-### Utilização de Bootstrap
-  Adicione estilos e componentes do Bootstrap ao seu projeto.
-
-    ```jsx
-    import 'bootstrap/dist/css/bootstrap.min.css';
-    import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
-    const Carousel = () => (
-      <div id="carouselExample" className="carousel slide" data-ride="carousel">
-        {/* Carrossel conteúdo */}
-      </div>
-    );
-
-    export default Carousel;
-    ```
-
-## Conclusão
-Este guia fornece uma visão geral da estrutura do projeto, descreve os componentes e páginas, e explica como utilizar bibliotecas como `axios`, Bootstrap e React Router.

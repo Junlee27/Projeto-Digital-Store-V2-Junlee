@@ -15,14 +15,4 @@ ProductImage.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 Product.hasMany(ProductOption, { foreignKey: 'productId', as: 'options' });
 ProductOption.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 
-const models = {
-  User,
-  Category,
-  Product,
-  ProductCategory,
-  ProductImage,
-  ProductOption,
-  sequelize,
-};
-
-export default models;
+export { User, Category, Product, ProductCategory, ProductImage, ProductOption, sequelize };

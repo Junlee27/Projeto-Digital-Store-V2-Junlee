@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '@models/index.js';
-import jwtConfig from '@config/jwt.js';
+import { User } from '../models/index.js';
+import jwtConfig from '../../config/jwt.js';
 
-export default {
+const AuthController = {
   async register(req, res) {
     const { firstname, surname, email, password } = req.body;
     try {
@@ -49,3 +49,5 @@ export default {
     }
   },
 };
+
+export default AuthController;

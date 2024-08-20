@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import Layout from "@components/Layout/Layout";
 import BuyBox from '@components/Buybox/Buybox';
 import Cards2 from "@components/Cards/Cards2";

@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import sequelize from '../config/database.js';
-import authRoutes from '@routes/authRoutes';
-import userRoutes from '@routes/userRoutes';
-import productRoutes from '@routes/productRoutes';
-import categoryRoutes from '@routes/categoryRoutes';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 dotenv.config();
 

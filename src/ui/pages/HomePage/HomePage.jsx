@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from '@components/Layout/Layout.jsx';
 import Carousel from "@components/Carousel/Carousel.jsx";
 import Cards from "@components/Cards/Cards.jsx";
@@ -56,12 +56,12 @@ const Home = () => {
                   card.desconto === true ? (
                     <Cards2
                       key={card.id}
-                      oferta={card.valordesconto}
+                      oferta={Number(card.valordesconto)}
                       foto={sapatoAzul}
                       titulo={card.titulo}
                       descricao={card.descricao}
-                      valorantigo={card.valorantigo}
-                      valoratual={card.valoratual}
+                      valorantigo={Number(card.valorantigo)}
+                      valoratual={Number(card.valoratual)}
                     />
                   ) : (
                     <Cards
@@ -69,8 +69,8 @@ const Home = () => {
                       foto={sapatoAzul}
                       titulo={card.titulo}
                       descricao={card.descricao}
-                      valorantigo={card.valorantigo}
-                      valoratual={card.valoratual}
+                      valorantigo={Number(card.valorantigo)}
+                      valoratual={Number(card.valoratual)}
                     />
                   )
                 )}

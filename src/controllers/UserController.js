@@ -1,6 +1,18 @@
-import { User } from '@models/index.js';
+import bcrypt from 'bcryptjs';
+import { User } from '../models/index.js';
 
 export default {
+  async createUser(req, res) {
+    const { firstname, surname, email, password } = req.body;
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await User.create({ firstname, surname, email, password: hashedPassword });
+      return res.status(201).json({ id: user.id, firstname, surname, email });
+    } catch (error) {
+      return res.status(400).json({ error: 'Erro ao criar o usuário' });
+    }
+  },
+
   async getById(req, res) {
     const { id } = req.params;
     try {

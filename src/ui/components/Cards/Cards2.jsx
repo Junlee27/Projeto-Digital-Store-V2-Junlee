@@ -1,8 +1,7 @@
-import "@styles/Components/Cards/Cards.css"
+import "@styles/Components/Cards/Cards.css";
 import { Link } from "react-router-dom";
 
 function Cards2({ titulo, descricao, valorantigo, valoratual, foto, oferta }) {
-
   return (
     <>
       <Link className="link-cards" to="/ProductView">
@@ -21,11 +20,10 @@ function Cards2({ titulo, descricao, valorantigo, valoratual, foto, oferta }) {
               <h3 className="valor-atual">${valoratual}</h3>
             </div>
           </div>
-
         </div>
       </Link>
     </>
   );
 }
 
-export default Cards2
+export default Cards2;

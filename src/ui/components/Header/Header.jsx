@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "@styles/Components/Header/Header.css";
 import logo from "@assets/img/logo.svg";
 import carrinho from "@assets/img/carrinho.svg";

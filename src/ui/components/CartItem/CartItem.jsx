@@ -1,4 +1,3 @@
-import React from 'react';
 import '@styles/Components/CartItem/CartItem.css';
 
 function CartItem({ item, removerItem, atualizarQuantidade }) {
@@ -18,9 +17,9 @@ function CartItem({ item, removerItem, atualizarQuantidade }) {
         </div>
       </div>
       <div className="item-quantity">
-        <button onClick={() => atualizarQuantidade(item, item.quantity - 1)}>-</button>
+        <button onClick={() => atualizarQuantidade(item.id, item.quantity - 1)}>-</button>
         <span>{item.quantity || 1}</span>
-        <button onClick={() => atualizarQuantidade(item, item.quantity + 1)}>+</button>
+        <button onClick={() => atualizarQuantidade(item.id, item.quantity + 1)}>+</button>
       </div>
       <button className="remove-item" onClick={() => removerItem(item.id)}>Remover</button>
     </div>

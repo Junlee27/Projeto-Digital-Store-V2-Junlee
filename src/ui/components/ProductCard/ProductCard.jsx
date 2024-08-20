@@ -1,4 +1,3 @@
-import React from "react";
 import "@styles/Components/ProductCard/ProductCard.css";
 
 function ProductCard({ image, name, price, rating, addToCart, product }) {

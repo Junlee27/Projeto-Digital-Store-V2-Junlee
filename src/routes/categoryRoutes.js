@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import CategoryController from '@controllers/CategoryController.js';
-import authMiddleware from '@middleware/authMiddleware.js';
+import CategoryController from '../controllers/CategoryController.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = Router();
 
 router.post('/', authMiddleware, CategoryController.createCategory);
-router.get('/:id', CategoryController.getCategoryById);
+router.get('/:id', CategoryController.getById);
 router.put('/:id', authMiddleware, CategoryController.updateCategory);
 router.delete('/:id', authMiddleware, CategoryController.deleteCategory);
 
